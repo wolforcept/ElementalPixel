@@ -21,6 +21,7 @@
             /* background-color: #80481d; */
             margin: 0;
             overflow: hidden;
+            user-select: none;
         }
 
         body {
@@ -28,57 +29,183 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
+            font-family: "Micro 5", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 60px;
+            color: white;
         }
 
         canvas {
             transform: scale(16);
             /* width: 100%; */
             /* height: 100%; */
+            image-rendering: optimizeSpeed;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: pixelated;
+            image-rendering: optimize-contrast;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+
+        canvas.hidden {
+            display: none;
         }
 
         #top {
-            transform: translateY(-300px);
+            max-width: 640px;
             width: 640px;
             /* background-color: red; */
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            font-family: "Micro 5", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-            font-size: 60px;
-            color: white;
+        }
+
+        #center {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #left,
+        #right {
+            display: flex;
+            flex-direction: row;
+            width: 100px;
         }
 
         #bottom {
-            transform: translateY(300px);
             width: 640px;
-            /* background-color: red; */
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            font-family: "Micro 5", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-            font-size: 60px;
-            color: white;
         }
 
-        #coord {}
+        #canvasWrapper {
+            min-width: 640px;
+            min-height: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #percentages {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            /* width: 300px; */
+        }
+
+        #percentages.hidden {
+            opacity: 0;
+        }
+
+        #waterPercent,
+        #earthPercent,
+        #firePercent,
+        #airPercent {
+            margin: 2px;
+            padding-right: 5px;
+            height: 48px;
+            line-height: 52px;
+            text-align: right;
+        }
+
+        #waterPercent,
+        #chooseWater {
+            background-color: #3377FF;
+        }
+
+        #earthPercent,
+        #chooseEarth {
+            background-color: #188b48;
+        }
+
+        #firePercent,
+        #chooseFire {
+            background-color: #c42408;
+        }
+
+        #airPercent,
+        #chooseAir {
+            background-color: #fffeaf;
+            color: black;
+        }
+
+        #initial {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #initial.hidden {
+            display: none;
+        }
+
+        #choices {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .choice {
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+            cursor: pointer;
+            transition: width 0.3s, height 0.3s, margin 0.3s;
+        }
+
+        .choice:hover {
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+        }
     </style>
 </head>
 
 <body>
     <div id="top">
-        <div id="asd">HP:</div>
+        <div id="hp"></div>
         <div id="coord"></div>
     </div>
-    <canvas id="canvas" width="40" height="40"></canvas>
-    <div id="bottom">
-        <div id="asd">assassin</div>
+    <div id="center">
+        <div id="left">
+            <div id="percentages" class="hidden">
+                <span id="waterPercent">0%</span>
+                <span id="earthPercent">0%</span>
+                <span id="firePercent">0%</span>
+                <span id="airPercent">0%</span>
+            </div>
+        </div>
+        <div id="canvasWrapper">
+            <div id="initial">
+                <div>Choose an element:</div>
+                <div id="choices">
+                    <div class="choice" id="chooseWater" onclick="start('water')">WATER</div>
+                    <div class="choice" id="chooseEarth" onclick="start('earth')">EARTH</div>
+                    <div class="choice" id="chooseFire" onclick="start('fire')">FIRE</div>
+                    <div class="choice" id="chooseAir" onclick="start('air')">AIR</div>
+                </div>
+            </div>
+            <canvas id="canvas" width="40" height="40" class="hidden"></canvas>
+        </div>
+        <div id="right">
+        </div>
     </div>
+    <div id="bottom">
+        <div id="asd"></div>
+    </div>
+
     <script src="script.js" async defer></script>
 </body>
 

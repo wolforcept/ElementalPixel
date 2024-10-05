@@ -8,7 +8,7 @@ function start(element) {
     const canvas = document.getElementById('canvas');
     canvas.classList.remove("hidden");
     const ctx = canvas.getContext('2d');
-    const ws = new WebSocket('ws://localhost');
+    const ws = new WebSocket('wss://localhost');
     // const ws = new WebSocket('wss://elementalpixelserver.onrender.com');
 
     let lastDirection = "left";

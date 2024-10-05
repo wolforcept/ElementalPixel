@@ -2,7 +2,7 @@ function start() {
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const ws = new WebSocket('ws://localhost:3000');
+    const ws = new WebSocket('wss://elementalpixelserver.onrender.com');
 
     let lastDirection = "left";
     let lastMessage;

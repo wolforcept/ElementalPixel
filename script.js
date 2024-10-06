@@ -1,8 +1,10 @@
+var lastMessage;
 
 function start(element) {
 
     document.getElementById('initial').classList.add('hidden');
     document.getElementById('percentages').classList.remove('hidden');
+    document.getElementById('cooldowns').classList.remove('hidden');
 
     const poll = {};
     const canvas = document.getElementById('canvas');
@@ -11,7 +13,6 @@ function start(element) {
     const ws = new WebSocket(window.HOST);
 
     let lastDirection = "left";
-    let lastMessage;
 
     window.addEventListener('keydown', ({ key }) => poll[key] = true);
     window.addEventListener('keyup', ({ key }) => poll[key] = false);
@@ -78,6 +79,9 @@ function start(element) {
             const message = JSON.parse(unparsedMessage.data);
             lastMessage = message;
 
+            const player = message.player;
+            const element = player.element;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             renderWorld(message.world);
@@ -91,11 +95,23 @@ function start(element) {
 
             renderPos(0, 0, "#FFFFFF55")
 
+            const seconds = Math.floor(message.time / 1000) % 60;
+            const minutes = Math.floor(message.time / 1000 / 60) % 60;
+            const hours = Math.floor(message.time / 1000 / 60 / 60);
+
+            document.getElementById("time").innerHTML = hours + ":" + minutes + ":" + seconds;
             document.getElementById("coord").innerHTML = message.player.x + "," + message.player.y;
             document.getElementById("waterPercent").innerHTML = message.percentages[0] + "%";
             document.getElementById("earthPercent").innerHTML = message.percentages[1] + "%";
             document.getElementById("firePercent").innerHTML = message.percentages[2] + "%";
             document.getElementById("airPercent").innerHTML = message.percentages[3] + "%";
+
+            const cooldown1percent = Math.floor(100 * message.player.cooldown1 / message.player.maxCooldown1);
+            const cooldown2percent = Math.floor(100 * message.player.cooldown2 / message.player.maxCooldown2);
+            const cooldown3percent = Math.floor(100 * message.player.cooldown3 / message.player.maxCooldown3);
+            document.getElementById("cooldown1").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown1percent}%, #000000 ${cooldown1percent}%)`
+            document.getElementById("cooldown2").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown2percent}%, #000000 ${cooldown2percent}%)`
+            document.getElementById("cooldown3").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown3percent}%, #000000 ${cooldown3percent}%)`
 
 
         } catch (e) {

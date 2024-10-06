@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Elemental Ants</title>
+    <title>Elemental Pixel</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -172,6 +172,25 @@
             height: 200px;
             margin: 10px;
         }
+
+        #cooldowns {
+            display: flex;
+            flex-direction: row;
+            gap: 10px
+        }
+
+        #cooldowns.hidden {
+            display: none;
+        }
+
+        .cooldown {
+            width: 64px;
+            height: 64px;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 
@@ -205,7 +224,13 @@
         </div>
     </div>
     <div id="bottom">
-        <div id="asd"></div>
+        <div id="cooldowns" class="hidden">
+            <div id="cooldown1" class="cooldown">Q</div>
+            <div id="cooldown2" class="cooldown">W</div>
+            <div id="cooldown3" class="cooldown">E</div>
+            <!-- <div id="cooldown4" class="cooldown"></div> -->
+        </div>
+        <div id="time"></div>
     </div>
 
     <script src="script.js" async defer></script>

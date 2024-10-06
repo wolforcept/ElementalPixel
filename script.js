@@ -2,9 +2,10 @@ var lastMessage;
 
 function start(element) {
 
-    document.getElementById('initial').classList.add('hidden');
+    document.getElementById('initial').remove();
     document.getElementById('percentages').classList.remove('hidden');
     document.getElementById('cooldowns').classList.remove('hidden');
+    document.getElementById('top').classList.remove('hidden');
 
     const poll = {};
     const canvas = document.getElementById('canvas');
@@ -109,11 +110,17 @@ function start(element) {
             const cooldown1percent = Math.floor(100 * message.player.cooldown1 / message.player.maxCooldown1);
             const cooldown2percent = Math.floor(100 * message.player.cooldown2 / message.player.maxCooldown2);
             const cooldown3percent = Math.floor(100 * message.player.cooldown3 / message.player.maxCooldown3);
-            document.getElementById("cooldown1").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown1percent}%, #000000 ${cooldown1percent}%)`
-            document.getElementById("cooldown2").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown2percent}%, #000000 ${cooldown2percent}%)`
-            document.getElementById("cooldown3").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown3percent}%, #000000 ${cooldown3percent}%)`
+            document.getElementById("cooldown1").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown1percent}%, #000000 ${cooldown1percent}%)`;
+            document.getElementById("cooldown2").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown2percent}%, #000000 ${cooldown2percent}%)`;
+            document.getElementById("cooldown3").style.background = `linear-gradient(90deg, ${getColor(element)} ${cooldown3percent}%, #000000 ${cooldown3percent}%)`;
 
+            document.getElementById("hp").innerHTML = "HP: " + player.hp;
 
+            if (player.respawning > 0) {
+                ctx.fillStyle = "22222380";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                document.getElementById("hp").innerHTML = "Respawning: " + (10 - Math.floor(player.respawning / 10));
+            }
         } catch (e) {
             console.log(e);
         }

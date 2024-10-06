@@ -15,6 +15,12 @@
     <script src="config.js"></script>
 
     <style>
+        @font-face {
+            font-family: 'Pixel Numbers';
+            /* src: url('pixelnumbers.ttf'); */
+            src: url('pixelnumbers.ttf') format('truetype');
+        }
+
         html,
         body {
             height: 100%;
@@ -32,10 +38,11 @@
             align-items: center;
             justify-content: center;
 
-            font-family: "Micro 5", sans-serif;
+            /* font-family: "Micro 5", sans-serif; */
+            font-family: "Pixel Numbers";
             font-weight: 400;
             font-style: normal;
-            font-size: 60px;
+            font-size: 30px;
             color: white;
         }
 
@@ -50,10 +57,6 @@
             image-rendering: pixelated;
             image-rendering: optimize-contrast;
             -ms-interpolation-mode: nearest-neighbor;
-        }
-
-        canvas.hidden {
-            display: none;
         }
 
         #top {
@@ -104,10 +107,6 @@
             /* width: 300px; */
         }
 
-        #percentages.hidden {
-            opacity: 0;
-        }
-
         #waterPercent,
         #earthPercent,
         #firePercent,
@@ -147,10 +146,6 @@
             align-items: center;
         }
 
-        #initial.hidden {
-            display: none;
-        }
-
         #choices {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -179,10 +174,6 @@
             gap: 10px
         }
 
-        #cooldowns.hidden {
-            display: none;
-        }
-
         .cooldown {
             width: 64px;
             height: 64px;
@@ -191,12 +182,17 @@
             align-items: center;
             justify-content: center;
         }
+
+        .hidden {
+            opacity: 0;
+            display: none;
+        }
     </style>
 </head>
 
 <body>
-    <div id="top">
-        <div id="hp"></div>
+    <div id="top" class="hidden">
+        <div id="hp">HP: </div>
         <div id="coord"></div>
     </div>
     <div id="center">
@@ -210,7 +206,7 @@
         </div>
         <div id="canvasWrapper">
             <div id="initial">
-                <div>Choose an element:</div>
+                <div>CHOOSE AN ELEMENT:</div>
                 <div id="choices">
                     <div class="choice" id="chooseWater" onclick="start('water')">WATER</div>
                     <div class="choice" id="chooseEarth" onclick="start('earth')">EARTH</div>
